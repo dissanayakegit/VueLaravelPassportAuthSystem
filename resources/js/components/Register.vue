@@ -17,7 +17,7 @@
         <form>
           <input
             type="text"
-            id="email"
+            id="user_name"
             class="fadeIn second"
             name="register"
             placeholder="User Name"
@@ -46,8 +46,9 @@
             @click.prevent="Register()"
           />
         </form>
+          <router-link to = '/Login'>{{("SignIn")}}</router-link>
 
-        <!-- Remind Passowrd -->
+          <!-- Remind Passowrd -->
         <!-- <div id="formFooter">
           <a class="underlineHover" href="#">Forgot Password?</a>
         </div> -->
@@ -80,7 +81,7 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            this.$route.push({ name: "login" });
+            this.$router.push({ name: "login" });
           }
         });
     },

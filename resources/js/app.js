@@ -26,5 +26,5 @@ const app = new Vue({
 
     router,
 
-    components: { App }
+    components: {App}
 });

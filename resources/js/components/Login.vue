@@ -38,6 +38,7 @@
                         @click.prevent="Login()"
                     />
                 </form>
+                <router-link to='/register'>{{ ("SignUp") }}</router-link>
 
                 <!-- Remind Passowrd -->
                 <!-- <div id="formFooter">
