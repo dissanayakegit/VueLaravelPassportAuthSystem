@@ -22,11 +22,12 @@ class AuthController extends Controller
             'password' => ['required', "min:6"]
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+        return response()->json(['user' => $user, 'status' => 'success'], 200);
     }
 
     public function login(Request $request)
@@ -40,15 +41,17 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect']
+                'invalid_credentials' => ['The provided credentials are incorrect']
             ]);
         }
 
-        return $user->createToken('Auth Token')->accessToken;
+        $accessToken = $user->createToken('Auth Token')->accessToken;
+        return response()->json(['accessToken' => $accessToken, 'status' => 'success'], 200);
     }
 
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 }

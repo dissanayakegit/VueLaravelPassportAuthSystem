@@ -23,14 +23,19 @@
                         placeholder="Email"
                         v-model="email"
                     />
+                    <div v-if="errors['email']" class="feed-back-validations">{{errors['email'][0]}}</div>
+
                     <input
                         type="text"
                         id="password"
-                        class="fadeIn third"
+                        class="fadeIn second"
                         name="login"
                         placeholder="password"
                         v-model="password"
                     />
+                    <div v-if="errors['password']" class="feed-back-validations">{{errors['password'][0]}}</div>
+                    <div v-if="errors['invalid_credentials']" class="feed-back-validations">{{errors['invalid_credentials'][0]}}</div>
+
                     <input
                         type="submit"
                         class="fadeIn fourth"
@@ -56,6 +61,7 @@ export default {
             token: "",
             email: "",
             password: "",
+            errors:{}
         };
     },
 
@@ -69,10 +75,11 @@ export default {
                 password: this.password,
             };
             await axios.post("login", credentials).then((response) => {
-                if (response.status === 200) {
-                    localStorage.setItem("token", response.data);
+                if (response.data && !response.data.data) {
+                    localStorage.setItem("token", response.data.accessToken);
                     this.token = response.data;
                 } else {
+                    this.errors = response.data && response.data.data ? response.data.data.errors.validations : {};
                     localStorage.setItem("token", "");
                     this.token = "";
                 }
@@ -90,6 +97,12 @@ export default {
 </script>
 
 <style scoped>
+
+.feed-back-validations{
+    color: #d91515;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
 /* BASIC */
 
 html {

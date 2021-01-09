@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,6 +51,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if($exception instanceof TokenInvalidException) {
+            return response()->json(['error' => 'Token invalid'], 400);
+        }
+
+        if ($exception instanceof ValidationException)
+        {
+            $response['errors']['validations'] = $exception->errors();
+            return response(['data'=>$response])->header('Content-Type', 'application/json');
+        }
+
         return parent::render($request, $exception);
     }
 }
