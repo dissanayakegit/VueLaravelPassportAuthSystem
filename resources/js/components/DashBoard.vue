@@ -14,7 +14,16 @@ export default {
     },
 
     mounted() {
+        this.getFiles();
+    },
 
+    methods: {
+        getFiles() {
+            alert();
+            axios.get('blog').then(response => {
+                console.log(response);
+            })
+        }
     }
 }
 </script>
