@@ -19,8 +19,10 @@ export default {
 
     methods: {
         getFiles() {
-            alert();
-            axios.get('blog').then(response => {
+            axios.get('get-files').then(response => {
+                console.log(response);
+            })
+            axios.post('post-files').then(response => {
                 console.log(response);
             })
         }
