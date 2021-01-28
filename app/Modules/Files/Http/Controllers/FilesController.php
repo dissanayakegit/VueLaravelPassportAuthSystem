@@ -17,7 +17,11 @@ class FilesController extends Controller
     public function index(){
         $this->fileRepo->getAllFiles();
     }
-    public function index2(){
-        dd(1);
+    public function updateFiles(Request $request){
+        $files = $request->get('files');
+        $files = json_decode($files, true);
+        foreach ($files as $file){
+            dd($file[0]);
+        }
     }
 }

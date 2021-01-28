@@ -1,3 +1,11 @@
+.nav-bar {
+    background-color: #e3f2fd;
+}
+
+.nav-link {
+    cursor: pointer;
+    font-size: 15px;
+}
 .main {
     overflow: auto;
     background-color: white;
@@ -7,4 +15,7 @@
     height: 100vh;
     border-radius: 10px;
     box-shadow: 5px 10px 18px #888888;
+}
+.common-margit-bottom{
+    margin-bottom: 10px;
 }
