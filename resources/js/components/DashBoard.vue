@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="container main">
-            <h2>hello you're in dashboard</h2>
-
+            <router-link to="/file-handler">{{("Files")}}</router-link>
+            <button @click.prevent="gotoFiles()">{{("Files")}}</button>
         </div>
     </div>
 </template>
@@ -14,7 +14,7 @@ export default {
     },
 
     mounted() {
-        this.getFiles();
+       // this.getFiles();
     },
 
     methods: {
@@ -25,21 +25,14 @@ export default {
             axios.post('post-files').then(response => {
                 console.log(response);
             })
+        },
+        gotoFiles(){
+            this.$router.push({path:'/file-handler'});
         }
     }
 }
 </script>
 
 <style scoped>
-.main {
-    overflow: auto;
-    background-color: white;
-    margin: 70px auto 10px auto;
-    padding: 30px;
-    width: 100vw;
-    height: 100vh;
-    border-radius: 10px;
-    box-shadow: 5px 10px 18px #888888;
-}
 
 </style>

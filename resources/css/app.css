@@ -1,0 +1,10 @@
+.main {
+    overflow: auto;
+    background-color: white;
+    margin: 70px auto 10px auto;
+    padding: 30px;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 10px;
+    box-shadow: 5px 10px 18px #888888;
+}

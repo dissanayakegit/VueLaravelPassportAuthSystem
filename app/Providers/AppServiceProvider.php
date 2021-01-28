@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('App\Modules\Files\Contracts\FilesRepositoryInterface', 'App\Modules\Files\Repositories\FilesRepository');
+
     }
 
     /**

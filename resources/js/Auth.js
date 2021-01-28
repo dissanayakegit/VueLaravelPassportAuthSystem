@@ -9,9 +9,10 @@ export default {
             }).then((response) => {
                 if (response.status === 200) {
                     localStorage.setItem("user", JSON.stringify(response.data));
-                    this.$router.push({name: 'dashBoard'}).catch(() => {
-                    });
-
+                    if (this.$route.name === 'login' || this.$route.name === 'dashBoard') {
+                        this.$router.push({name: 'dashBoard'}).catch(() => {
+                        });
+                    }
                 } else {
                     localStorage.removeItem("user");
                     localStorage.removeItem("token");

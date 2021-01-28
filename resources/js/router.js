@@ -4,12 +4,18 @@ import DashBoard from "./components/DashBoard";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import CustomerList from "./components/CustomerList";
+import FileHandler from "./components/Files/FileHandler";
 
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
+        {
+            name: 'login',
+            path: '/',
+            component: Login
+        },
         {
             name: 'dashBoard',
             path: '/dashBoard',
@@ -29,6 +35,11 @@ export default new VueRouter({
             name: 'customer',
             path: '/customer',
             component: CustomerList
+        },
+        {
+            name: 'fileHandler',
+            path: '/file-handler',
+            component: FileHandler
         }
     ],
 

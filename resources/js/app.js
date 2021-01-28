@@ -4,6 +4,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import "../css/app.css"
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
