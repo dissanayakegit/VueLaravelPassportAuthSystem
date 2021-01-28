@@ -4,8 +4,12 @@
 namespace App\Modules\Files\Contracts;
 
 
-interface FilesRepositoryInterface
+use App\Contracts\MainRepositoryInterface;
+
+interface FilesRepositoryInterface extends MainRepositoryInterface
 {
     public function getAllFiles();
+
+    public function getFiletDetailsById($fileID);
 
 }

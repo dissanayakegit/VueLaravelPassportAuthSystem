@@ -3,11 +3,10 @@
 
 namespace App\Modules\Files\Repositories;
 
-
-use App\File;
 use App\Modules\Files\Contracts\FilesRepositoryInterface;
+use App\Repositories\MainRepository;
 
-class FilesRepository  implements FilesRepositoryInterface
+class FilesRepository  extends MainRepository implements FilesRepositoryInterface
 {
     function model()
     {
@@ -15,7 +14,12 @@ class FilesRepository  implements FilesRepositoryInterface
     }
 
     public function getAllFiles(){
-        dd('file repo!');
+        return $this->model->all();
     }
+
+    public function getFiletDetailsById($fileId){
+        $this->model->where('id', $fileId)->first();
+    }
+
 
 }

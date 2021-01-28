@@ -1,6 +1,9 @@
 <template>
     <div>
-        <button type="button" class="btn btn-success common-margit-bottom" @click="addNewFile">{{ ("Add New File") }}</button>
+        <button type="button" class="btn btn-success common-margit-bottom" @click="addNewFile">{{
+                ("Add New File")
+            }}
+        </button>
         <div>
             <div class="row">
                 <div class="col-lg-4">
@@ -19,24 +22,36 @@
         <div v-for="file in filesArray">
             <div class="row file-row">
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="description" placeholder="Enter file description"
+                    <input type="text" class="form-control"
+                           id="description"
+                           placeholder="Enter file description"
+                           v-if="isNewFile(file.id)"
                            v-model="file.fileDescription">
+
+                    <input v-else class="form-control"
+                           readonly
+                           :value="file.file_description">
                 </div>
                 <div class="col-lg-4">
                     <input type="file" class="form-control"
                            placeholder="Select file"
                            v-bind:id="file.id"
+                           v-if="isNewFile(file.id)"
                            @change="setFile(file.id,$event)">
+
+                    <input v-else class="form-control"
+                           readonly
+                           :value="file.file_name">
                 </div>
                 <div class="col-lg-2">
                     <button type="button" class="btn btn-danger"
-                    @click="deleteFile(file.id)">
+                            @click="deleteFile(file.id)">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
                 <div class="col-lg-2">
                     <button type="button" class="btn btn-success"
-                    @click="downloadFile(file.id)">
+                            @click="downloadFile(file.id)">
                         <i class="bi bi-arrow-down-circle"></i>
                     </button>
                 </div>
@@ -50,6 +65,18 @@
 export default {
     name: "FileComponent",
 
+    props: {
+        files: {
+            type: Array,
+        },
+    },
+
+    watch: {
+        files(files) {
+            this.filesArray = files;
+        },
+    },
+
     data() {
         return {
             fileId: 0,
@@ -57,12 +84,21 @@ export default {
             fileDescription: '',
             isLargerFile: false,
             fileBrowseName: '',
-            selected_file_mime_type: '',
+            fileName: '',
+            selectedFileMimeType: '',
             deletedFileIds: [],
         }
     },
 
     methods: {
+        isNewFile(id) {
+            let file_id = id.toString();
+            if (file_id.startsWith("new_") == true) {
+                return true
+            } else {
+                return false
+            }
+        },
         addNewFile() {
             this.filesArray.push(
                 {
@@ -108,8 +144,7 @@ export default {
             }
         },
 
-        deleteFile(fileId){
-            alert(fileId);
+        deleteFile(fileId) {
             let self = this;
             let i = 0;
             let file_id = fileId.toString();
@@ -128,7 +163,7 @@ export default {
             this.$emit('deletedFileIds', self.deletedFileIds);
         },
 
-        downloadFile(fileId){
+        downloadFile(fileId) {
             alert(fileId);
         }
     }

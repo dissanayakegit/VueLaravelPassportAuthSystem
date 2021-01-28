@@ -13,5 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/get-files', 'FilesController@index');
+Route::get('/get-all-files', 'FilesController@getAllFiles');
 Route::post('/update-files', 'FilesController@updateFiles');

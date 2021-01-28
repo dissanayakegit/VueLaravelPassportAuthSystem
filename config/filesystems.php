@@ -63,6 +63,10 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+        'files_uploads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files_uploads'),
+        ],
 
     ],
 
