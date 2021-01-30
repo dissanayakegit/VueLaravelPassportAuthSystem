@@ -44,13 +44,13 @@
                            :value="file.file_name">
                 </div>
                 <div class="col-lg-2">
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-outline-danger"
                             @click="deleteFile(file.id)">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
                 <div class="col-lg-2">
-                    <button type="button" class="btn btn-success"
+                    <button type="button" class="btn btn-outline-success"
                             @click="downloadFile(file.id)">
                         <i class="bi bi-arrow-down-circle"></i>
                     </button>

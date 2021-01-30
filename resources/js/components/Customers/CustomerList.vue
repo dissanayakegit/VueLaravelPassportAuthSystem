@@ -21,13 +21,13 @@
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.phone_number }}</td>
                 <td>
-                    <button type="button" class="btn btn-warning"
+                    <button type="button" class="btn btn-outline-warning"
                             @click.prevent="openModal(true,customer)">
                         <i class="bi bi-pencil"></i>
                     </button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-outline-danger"
                             @click="deleteCustomer(customer.id)">
                         <i class="bi bi-trash"></i>
                     </button>
