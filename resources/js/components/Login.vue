@@ -23,18 +23,20 @@
                         placeholder="Email"
                         v-model="email"
                     />
-                    <div v-if="errors['email']" class="feed-back-validations">{{errors['email'][0]}}</div>
+                    <div v-if="errors['email']" class="feed-back-validations">{{ errors['email'][0] }}</div>
 
                     <input
-                        type="text"
+                        type="password"
                         id="password"
                         class="fadeIn second"
                         name="login"
                         placeholder="password"
                         v-model="password"
                     />
-                    <div v-if="errors['password']" class="feed-back-validations">{{errors['password'][0]}}</div>
-                    <div v-if="errors['invalid_credentials']" class="feed-back-validations">{{errors['invalid_credentials'][0]}}</div>
+                    <div v-if="errors['password']" class="feed-back-validations">{{ errors['password'][0] }}</div>
+                    <div v-if="errors['invalid_credentials']" class="feed-back-validations">
+                        {{ errors['invalid_credentials'][0] }}
+                    </div>
 
                     <input
                         type="submit"
@@ -61,7 +63,7 @@ export default {
             token: "",
             email: "",
             password: "",
-            errors:{}
+            errors: {}
         };
     },
 
@@ -98,11 +100,12 @@ export default {
 
 <style scoped>
 
-.feed-back-validations{
+.feed-back-validations {
     color: #d91515;
     font-size: 15px;
     margin-bottom: 20px;
 }
+
 /* BASIC */
 
 html {
@@ -220,6 +223,27 @@ input[type="reset"]:active {
 }
 
 input[type="text"] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+input[type="password"] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;

@@ -14,10 +14,11 @@ class CustomerUpdateRequest extends FormRequest
 
     public function rules()
     {
+        $id = request()->route()->parameter('id');
         $rules = [
-            'customerName' => ['required', 'numeric'],
-            'customerAddress' => ['required', 'max:20'],
-            'customerEmail' => ['required', 'unique:customers,email'],
+            'customerName' => ['required'],
+            'customerAddress' => ['required', 'max:200'],
+            'customerEmail' => ['required', 'unique:customers,email,'.$id.',id'],
             'customerContactNumber' => ['required', 'numeric', new PhoneNumberValidation],
         ];
 

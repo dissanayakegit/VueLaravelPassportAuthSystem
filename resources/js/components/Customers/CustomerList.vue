@@ -124,6 +124,7 @@ export default {
 
         closeModal() {
             this.errors = {};
+            this.customerId = null;
             $("#customerModal").modal('hide');
         },
 
