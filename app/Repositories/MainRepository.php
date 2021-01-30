@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use Exception;
-use Illuminate\Support\Facades\DB;
 use App\Contracts\MainRepositoryInterface;
 use Illuminate\Contracts\Container\Container as App;
 use Illuminate\Support\Facades\Storage;
@@ -125,64 +124,5 @@ abstract class MainRepository implements MainRepositoryInterface
     public function makeGuzzleRequest($endpoint, $request_type = 'get', $params = [])
     {
         return guzzleRequest($endpoint, $request_type, $params);
-    }
-
-    public function getTokenFromTokenService($guid = null)
-    {
-        return generateToken($guid);
-    }
-
-    public function checkIsTokenValid($token = null)
-    {
-        return checkIsTokenValid($token);
-    }
-
-    public function getChildAccounts($permissionToAccountType, $permissionToTerritoryId)
-    {
-        $user = auth('api')->user();
-        $tenant_info = Tenant::territoryDetails($user->tenant->tena_id);
-        $account = Company::where('comp_territory_id', $permissionToTerritoryId)->first();
-        $accountTerritoryId = $account->comp_territory_id;
-        $childAccounts = Company::select('comp_id', 'comp_name', 'comp_territory_id', 'comp_country', 'comp_region_id', 'is_logical')
-            ->without('territory', 'region')
-            ->where('comp_country', $tenant_info['tena_country'])
-            ->whereHas('territory.tenant', function ($query) use ($permissionToAccountType) {
-                $query->where('tena_type', $permissionToAccountType);
-            });
-        $childAccounts = $childAccounts->orderBy('comp_territory_id')
-            ->addSelect(DB::raw('(SELECT terr_parent_id FROM SYS_territories WHERE SYS_companies.comp_territory_id = SYS_territories.terr_id ) as terr_parent_id'))
-            ->orderBy('terr_parent_id')
-            ->get();
-
-        $data = $this->accountTree($childAccounts, $accountTerritoryId);
-        return $data;
-    }
-
-    public function accountTree($companies, $territory_id)
-    {
-
-        $ids = [];
-        foreach ($companies as $com) {
-            if ($territory_id == $com->terr_parent_id) {
-                $ids[] = array("company_id" => $com->comp_id, "company_territory_id" => $com->comp_territory_id);
-
-                $childids = $this->accountTree($companies, $com->comp_territory_id);
-
-                $ids = array_merge($ids, $childids);
-            }
-        }
-        $response = unique_multi_dimensional_array($ids, 'company_id');
-        return $response;
-    }
-
-    public function addSameKeyForElementsInArray($array, $key)
-    {
-        $createdArray = [];
-        foreach ($array as $element) {
-            $createdArray[str_random(4)] = [
-                $key => $element
-            ];
-        }
-        return $createdArray;
     }
 }

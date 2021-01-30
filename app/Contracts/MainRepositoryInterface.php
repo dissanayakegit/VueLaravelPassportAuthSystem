@@ -28,8 +28,4 @@ interface MainRepositoryInterface
     public function withRelationshipQuery($withArray);
 
     public function makeGuzzleRequest($endpoint, $request_type = 'get', $params = []);
-
-    public function getTokenFromTokenService($guid);
-
-    public function checkIsTokenValid($token);
 }

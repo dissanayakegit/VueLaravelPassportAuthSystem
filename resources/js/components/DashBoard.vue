@@ -2,6 +2,7 @@
     <div>
         <div class="container main">
             <router-link to="/file-handler">{{("Files")}}</router-link>
+            <router-link to="/customer-list">{{("Customers")}}</router-link>
         </div>
     </div>
 </template>

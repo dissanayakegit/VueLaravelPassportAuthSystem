@@ -9,6 +9,7 @@
                 </li>
                 <li class="nav-item active">
                     <router-link class="navbar-brand nav-link"
+                                 v-if="this.$route.name !== 'dashBoard'"
                                  to="/dashBoard">{{ ("Dash Board") }}
                     </router-link>
                 </li>

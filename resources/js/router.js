@@ -3,8 +3,8 @@ import VueRouter from 'vue-router';
 import DashBoard from "./components/DashBoard";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import CustomerList from "./components/CustomerList";
 import FileHandler from "./components/Files/FileHandler";
+import CustomerList from "./components/Customers/CustomerList";
 
 
 Vue.use(VueRouter);
@@ -32,15 +32,15 @@ export default new VueRouter({
             component: Register
         },
         {
-            name: 'customer',
-            path: '/customer',
-            component: CustomerList
-        },
-        {
             name: 'fileHandler',
             path: '/file-handler',
             component: FileHandler
-        }
+        },
+        {
+            name: 'customer-list',
+            path: '/customer-list',
+            component: CustomerList
+        },
     ],
 
     mode: 'history'
