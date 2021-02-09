@@ -27,33 +27,30 @@ class FilesController extends Controller
         $deletedRecordIds = $request->get('deletedRecordIds');
 
         $files = json_decode($files, true);
+        $files = $files['files'];
         $deletedRecordIds = json_decode($deletedRecordIds, true);
 
         if ($files) {
             foreach ($files as $file) {
-
-                $saveFile = $this->_saveFile($file[0]);
-                $postData = [
-                    'file_description' => $file[0]['fileDescription'],
-                    'mime_type' => $file[0]['selectedFileMimeType'],
-                ];
-                $isNew = substr($file[0]['id'], 0, 4) === "new_";
+                $postData = [];
+                $isNew = substr($file['id'], 0, 4) === "new_";
                 if ($isNew) {
-                    if (isset($file[0]['file'])) {
-                        //$data = $this->_setMimeTypeAndFileSize($file[0]);
+                    if (isset($file['file']) && $file['file'] != '') {
+                        $saveFile = $this->_saveFile($file);
+                        $postData['file_description'] = $file['fileDescription'];
+                        $postData['mime_type'] = $file['selectedFileMimeType'];
                         $postData['file_name'] = $saveFile;
-                        //$postData['mime_type'] = $data['fileType'];
                         $this->fileRepo->create($postData);
                     }
 
                 } else {
-                    if (isset($file[0]['document_name']) && isset($file[0]['file'])) {
+                    if (isset($file['document_name']) && isset($file['file'])) {
                         $this->_deleteFile($file[0]['document_name']);
-                        //$data = $this->_setMimeTypeAndFileSize($file[0]);
-                        $postData['document_name'] = $saveFile;
-                        //$postData['mime_type'] = $data['fileType'];
+                        $postData['file_description'] = $file['file_description'];
+                        $postData['mime_type'] = $file['mime_type'];
+                        $postData['file_name'] = $saveFile;
                     }
-                    $this->fileRepo->update($postData, $file[0]['id']);
+                    $this->fileRepo->update($postData, $file['id']);
                 }
             }
         }
@@ -83,15 +80,6 @@ class FilesController extends Controller
             $this->_deleteFile($file['document_name']);
             return $this->_createFile($file['file'], $file['fileBrowseName']);
         }
-    }
-
-    private function _setMimeTypeAndFileSize($fileData)
-    {
-        $file = $fileData['file'];
-        $fileType = explode(';', $file)[0];
-        $fileType = substr($fileType, 5);
-
-        return ['fileType' => $fileType];
     }
 
     private function _createFile($file, $file_browse_name)
